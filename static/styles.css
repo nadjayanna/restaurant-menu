@@ -1,0 +1,158 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Roboto;
+  font-size: 14px;
+  color: #424242;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0; 
+}
+
+header, nav, footer, section, article, div {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.content{
+	margin-top: none;
+	border: none;
+	background-color: #FAF7C4;
+}
+
+.header__inner {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.header__title {
+  font-weight: 300;
+  font-size: 3em;
+  margin: 0.25em;
+  display: inline-block;
+  color: #663300;
+}
+
+.new{
+	width: 100%;
+	padding: 1em;
+	font-weight: 500;
+}
+
+.new a {
+  text-decoration: none;
+  color: #666;
+}
+
+.new a:hover,
+.new a:active {
+  text-decoration: underline;
+}
+
+.list {
+  /*border: 1px solid #E0E0E0;*/
+  padding: 1em;
+  width: 100%;
+}
+
+.list__title{
+  color: #e60000;
+  text-transform: uppercase;
+  font-weight: 500;
+
+}
+.list__item {
+  /*border-bottom: 1px solid #E0E0E0;*/
+  padding: 1em 0;
+  line-height: 19.2px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  background-color:  #FFFFF2;
+}
+
+.list__item:first-child {
+  margin-top: 0em;
+}
+
+.list__item a {
+  text-decoration: none;
+  color: #666;
+  padding: 1.5em;
+}
+
+.list__item a:hover,
+.list__item a:active {
+  text-decoration: underline;
+}
+
+.list__item span{
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+.list__button {
+  text-align: right;
+  font-weight: 300;
+}
+.list__button a{
+  text-decoration: none;
+  margin-right: 1em;
+}
+
+.list__button a:hover,
+.list__button a:active {
+  text-decoration: underline;
+}
+
+.name {
+    width: 50%;
+    display: inline-block;
+    float: left;
+}
+.price {
+    text-align: right;
+    width: 50%;
+    float: right;
+}
+
+.description {
+	width: 100%;
+	font-weight: 300;
+	font-style: italic;
+	display: inline-block;
+}
+
+.flash{
+	margin-top: 10px;
+	color:red;
+	font-style: italic;
+}
+
+.form{
+	width: 100%;
+	padding: 1em;
+}
+
+.form input{
+	max-width: 90%;
+	margin-top: 0.5em;
+}
+.form span {
+	margin-top: 0.5em;
+}
+
+.form select {
+	margin-top: 0.5em;
+}

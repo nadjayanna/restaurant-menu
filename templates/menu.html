@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='responsive.css') }}">
+	<title>{{restaurant.name}}</title>
+</head>
+<body>
+	<main>
+		<section class="content">
+			<section class="header__inner">
+				<h1 class="header__title">{{restaurant.name}}</h1>
+			</section>
+			<section class="new">
+				<a href = "{{url_for('newMenuItem', restaurant_id = restaurant.id) }}">CREATE NEW MENU ITEM</a>
+			</section>
+			<section class="list">
+				<ul>
+					{% for course in menu %}
+						<span class="list__title">{{course[0].name}}</span>
+						{% for item in course[1] %}
+							<li class="list__item">
+									<span class="name">{{item.name}}</span>
+									<span class="price">${{item.price}}</span>
+									<span class="description">{{item.description}}</span>
+		       			 	</li>
+		       			 	<div class="list__button">
+      			    			<a href="{{ url_for('editMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Edit</a>
+      			    			<a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Delete</a>
+      			 			</div>
+		       			{% endfor %}
+					{% endfor %}
+				</ul>
+			</section>
+		</section>
+	</main>
+
+</body>
+</html>
