@@ -29,8 +29,9 @@
 								<option value={{course.id}}>{{course.name}}</option>
 							{% endfor %}
 						</select>
+						<a href = "{{url_for('newCourse') }}">create new course</a>
 						</br></br>
-						<input type="submit" name="Create" class="submit">
+						<input type="submit" name="Create" class="submit" value="Create">
 				</form>
 			</section>
 		</section>

@@ -56,34 +56,42 @@ def deleteRestaurant(restaurant_id):
 @app.route('/courses')
 def showCourses():
     courses = session.query(Course).all()
-    output ="<html><body><h1>teste</h1>"
-    for course in courses:
-        output+=course.name
-        output+="</br>"
-    output +="</body></html>"
-    return output
+    return render_template('courses.html', courses=courses)
 
-@app.route('/course/new')
+@app.route('/course/new', methods=['GET', 'POST'])
 def newCourse():
-    output = "<html><body><h1>Create New Course</h1></body></html>"
-    return output
+    if request.method == 'POST':
+        newCourse = Course(name = request.form['name'])
+        session.add(newCourse)
+        session.commit()
+        flash("New Course created!")
+        return redirect(url_for('showCourses'))
+    else:
+        return render_template('new_course.html')
 
-@app.route('/course/<int:course_id>/')
-@app.route('/course/<int:course_id>/edit')
+@app.route('/course/<int:course_id>/edit' , methods=['GET', 'POST'])
 def editCourse(course_id):
     course = session.query(Course).filter_by(id=course_id).one()
-    output = "<html><body><h1>Edit "
-    output += course.name
-    output += "</h1></body></html>"
-    return output
+    if request.method == 'POST':
+        if request.form['name']:
+            course.name = request.form['name']
+        session.add(course)
+        session.commit()
+        flash("Course edited!")
+        return redirect(url_for('showCourses'))
+    else:
+        return render_template('edit_course.html', course_id=course_id, course=course)
 
-@app.route('/course/<int:course_id>/delete')
+@app.route('/course/<int:course_id>/delete', methods=['GET', 'POST'])
 def deleteCourse(course_id):
     course = session.query(Course).filter_by(id=course_id).one()
-    output = "<html><body><h1>Delete "
-    output += course.name
-    output += "</h1></body></html>"
-    return output
+    if request.method == 'POST':
+        session.delete(course)
+        session.commit()
+        flash("Course Deleted!")
+        return redirect(url_for('showCourses'))
+    else:
+        return render_template('delete_course.html', course_id=course_id, course=course)
 
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu')

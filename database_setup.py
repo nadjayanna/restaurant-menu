@@ -33,6 +33,7 @@ class MenuItem(Base):
     price = Column(String(8))
     course_id = Column(Integer, ForeignKey('course.id'))
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
+    
 ####### insert at end of file #######
 
 engine = create_engine('sqlite:///restaurantsmenu.db')

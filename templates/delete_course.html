@@ -5,20 +5,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='responsive.css') }}">
-	<title>New Restaurant</title>
+	<title>Delete Course</title>
 </head>
 <body>
 	<main>
 		<section class="content">
 			<section class="new">
-				<h1>NEW RESTAURANT</h1>
+				<h1>Delete {{course.name}}</h1>
 			</section>
 			<section class="form">
-				<form action="{{url_for('newRestaurant')}}" method="POST">
-						<span>Name:</span>
-						<input type="text" name="name" size="30">
+				<form action="{{url_for('deleteCourse', course_id=course.id)}}" method="POST">
+						<span>Are you sure you want to delete {{course.name}}?</span>
 						</br></br>
-						<input type="submit" name="Create" class="submit" value="Create">
+						<input type="submit" name="delete" class="submit" value="DELETE">
 				</form>
 			</section>
 		</section>

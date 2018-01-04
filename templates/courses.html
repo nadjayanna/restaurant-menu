@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='responsive.css') }}">
+	<title>Courses</title>
+</head>
+<body>
+	<main>
+		<section class="content">
+			<section class="new">
+				<a href = "{{url_for('newCourse') }}">CREATE NEW COURSE</a>
+				<div class = 'flash'>
+            	{% with messages = get_flashed_messages()%}
+            	    {% if messages %}
+            	        <ul>
+            	            {% for message in messages %}
+            	                <li><strong>{{message}}</strong></li>
+            	            {% endfor %}
+            	        </ul>
+            	    {% endif %}
+            	{% endwith %}
+       			</div>
+			</section>
+			<section class="list">
+				<ul>
+					{% for course in courses %}
+						<li class="list__item" >{{course.name}}</li>
+		        		<div class="list__button">
+      					    <a href="{{ url_for('editCourse', course_id=course.id) }}">Edit</a>
+      					    <a href="{{ url_for('deleteCourse', course_id=course.id) }}">Delete</a>
+      					</div>
+					{% endfor %}
+				</ul>
+			</section>
+		</section>
+	</main>
+</body>
+</html>
