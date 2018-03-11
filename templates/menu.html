@@ -1,41 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='responsive.css') }}">
-	<title>{{restaurant.name}}</title>
-</head>
-<body>
-	<main>
-		<section class="content">
-			<section class="header__inner">
-				<h1 class="header__title">{{restaurant.name}}</h1>
-			</section>
-			<section class="new">
-				<a href = "{{url_for('newMenuItem', restaurant_id = restaurant.id) }}">CREATE NEW MENU ITEM</a>
-			</section>
-			<section class="list">
-				<ul>
-					{% for course in menu %}
-						<span class="list__title">{{course[0].name}}</span>
-						{% for item in course[1] %}
-							<li class="list__item">
-									<span class="name">{{item.name}}</span>
-									<span class="price">${{item.price}}</span>
-									<span class="description">{{item.description}}</span>
-		       			 	</li>
-		       			 	<div class="list__button">
-      			    			<a href="{{ url_for('editMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Edit</a>
-      			    			<a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Delete</a>
-      			 			</div>
-		       			{% endfor %}
-					{% endfor %}
-				</ul>
-			</section>
-		</section>
-	</main>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ restaurant.name }}
+				<figure class="creator">
+					<img src="{{ url_for('static', filename='blank_user.gif') }}">
+					<figcaption>Menu creator's name goes here</figcaption>
+				</figure>
+			</h1>
+		</div>
+	</div>
 
-</body>
-</html>
+	<div class = 'flash'>
+		{% with messages = get_flashed_messages() %}
+      		{% if messages %}  
+        		<ul>
+        		{% for message in messages %}
+        	    	<li> <strong> {{ message }} </strong> </li>
+        		{% endfor %}
+        		</ul>
+        	{% endif %}
+    	{% endwith %}
+	</div>
+
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			<a href="{{url_for('editRestaurant', restaurant_id = restaurant.id )}}">
+				<button class="btn btn-default" id="new-menu-item">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit Restaurant
+				</button>
+			</a>
+			<a href="{{url_for('newMenuItem', restaurant_id = restaurant.id )}}">
+				<button class="btn btn-default" id="new-menu-item">
+					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Add Menu Item
+				</button>
+			</a>
+			<a href="{{url_for('deleteRestaurant', restaurant_id = restaurant.id )}}">
+				<button class="btn btn-default delete" id="delete-restaurant">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete Restaurant
+				</button>
+			</a>
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+
+	{% if items !=[] %}	
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row">
+					{% for course in menu %}
+						{% if course[0].name == 'Appetizer' %}
+						<div class="col-md-4">
+							<h2>{{course[0].name}}</h2>
+							{% for item in course[1] %}
+								<div class="menu-item">
+									<h3>{{item.name}}</h3>
+									<p>{{item.description}}</p>
+									<p class="menu-price">{{item.price}}</p>
+									<a href="{{ url_for('editMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Edit</a>
+      			    				<a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Delete</a>
+								</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					{% endfor %}
+					{% for course in menu %}	
+						{% if course[0].name == 'Entree' %}
+						<div class="col-md-4">
+							<h2>{{course[0].name}}</h2>
+							{% for item in course[1] %}
+								<div class="menu-item">
+									<h3>{{item.name}}</h3>
+									<p>{{item.description}}</p>
+									<p class="menu-price">{{item.price}}</p>
+									<a href="{{ url_for('editMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Edit</a>
+      			    				<a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Delete</a>
+								</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					{% endfor %}
+					{% for course in menu %}
+						{% if course[0].name != 'Appetizer' %}
+						{% if course[0].name != 'Entree'  %}
+						<div class="col-md-4">
+							<h2>{{course[0].name}}</h2>
+							{% for item in course[1] %}
+								<div class="menu-item">
+									<h3>{{item.name}}</h3>
+									<p>{{item.description}}</p>
+									<p class="menu-price">{{item.price}}</p>
+									<a href="{{ url_for('editMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Edit</a>
+      			    				<a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant.id, item_id=item.id) }}">Delete</a>
+								</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	{% endif %}
+{% endblock %}

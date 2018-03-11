@@ -16,7 +16,7 @@ session = DBSession()
 @app.route('/restaurants/')
 def showRestaurants():
     restaurants = session.query(Restaurant).all()
-    return render_template('index.html', restaurants=restaurants)
+    return render_template('restaurants.html', restaurants=restaurants)
 
 @app.route('/restaurant/new/' , methods=['GET', 'POST'])
 def newRestaurant():
@@ -97,7 +97,7 @@ def deleteCourse(course_id):
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    courses = session.query(Course).all()
+    courses = session.query(Course).order_by(Course.name).all()
     itensbycourse = []
     for course in courses:
         sublist = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course_id=course.id).all();
